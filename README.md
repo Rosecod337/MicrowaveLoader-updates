@@ -2,7 +2,7 @@
 
 [Скачать MicrowaveLoader.exe](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/latest/download/MicrowaveLoader.exe)
 
-Версия **2026.10.18.4**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
+Версия **2026.10.18.5**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
 необходимые пакеты скачиваются автоматически без GitHub-входа и токена.
 Исходники не публикуются.
 
@@ -34,6 +34,9 @@ Neverlose. Современный CS2 не поддерживается. Пос�
 
 Шесть нативных настроек в **VISUALS / Effects**: Viewmodel FOV/XYZ,
 Thirdperson distance, Aspect ratio, Ambient light, Model brightness и Fog.
+Настройки включаются отдельными галочками; параметры раскрываются под своей
+галочкой. Общий selector Microwave section и мастер удалены; прокрутка штатная.
+В MISC / Miscellaneous добавлен Console filter с возвратом con_filter_*.
 Это частичный перенос Lua в C++. Полный перенос ещё не завершён.
 Сборка и офлайн-проверки пройдены; расположение контролов и работа Beta в игре
 требуют проверки пользователем.
@@ -54,4 +57,4 @@ GameSense DLL, а не к новой Beta. При неизвестном про�
 Серверные пакеты содержат штатную локальную пару TLS `certs/cert.pem` и
 `certs/key.pem`. Эти файлы публичны и предназначены только для данного сервера.
 
-[Релиз 2026.10.18.4](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.18.4).
+[Релиз 2026.10.18.5](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.18.5).
