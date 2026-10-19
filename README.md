@@ -2,7 +2,7 @@
 
 [Скачать MicrowaveLoader.exe](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/latest/download/MicrowaveLoader.exe)
 
-Версия **2026.10.19.5**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
+Версия **2026.10.19.6**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
 необходимые пакеты скачиваются автоматически без GitHub-входа и токена.
 Исходники не публикуются.
 
@@ -31,11 +31,13 @@ Neverlose. Современный CS2 не поддерживается. Пос�
 
 ## GameSense Beta
 
-Девять нативных настроек в **VISUALS / Effects**: Viewmodel FOV/XYZ,
+Отдельные нативные настройки в **VISUALS / Effects**: Viewmodel FOV/XYZ,
 Thirdperson distance, Aspect ratio, Ambient light, Model brightness, Fog, Show viewmodel in scope, Custom bloom, Custom exposure и Material remap.
 Настройки включаются отдельными галочками; параметры раскрываются под своей
 галочкой. Общий selector Microwave section и мастер удалены; прокрутка штатная.
 В MISC / Miscellaneous добавлен Console filter с возвратом con_filter_*.
+Buy bot добавлен отдельными настройками в MISC / Miscellaneous: Ignore 16k limit, Buy primary, Buy secondary и Buy utility. Покупка выполняется один раз по round_prestart после задержки latency + 200 мс. Настройки и деньги читаются после задержки; выключение, отключение от сервера и LevelShutdown отменяют ожидающую покупку. Указатели на события и игроков не сохраняются. Пять новых параметров используют штатную систему конфигов; всего 31 значение.
+34 офлайн-проверки Buy bot (включая передачу событий между потоками), прежние 91 проверки и реальные x86 ABI-фикстуры интерфейсов/слушателя прошли. Покупки, повторные раунды, reconnect и сохранение новых пяти параметров ещё требуют проверки в игре без исходной Lua.
 Bloom (0–500%) и Exposure (10–400%) меняют свойства всех tonemap-контроллеров карты и cvar fallback. Штатный Disable post processing сохраняет приоритет. Прежние значения возвращаются только при сохранении владения; удалённые и повторно использованные сущности пропускаются. Обновление максимум дважды в секунду, изменения настроек применяются сразу.
 Scope работает через проверенный кэш описаний оружия. Пользователь подтвердил исправление scope/FPS на .19.3: «Теперь всё хорошо»; численные FPS не присланы. Исправление сохранено в .19.4.
 Bloom/Exposure пользователь подтвердил в .19.4. Сохранение первых 25 нативных значений также подтверждено; отдельного подтверждения автозагрузки после перезапуска нет.
@@ -63,4 +65,4 @@ GameSense DLL, а не к новой Beta. При неизвестном про�
 Серверные пакеты содержат штатную локальную пару TLS `certs/cert.pem` и
 `certs/key.pem`. Эти файлы публичны и предназначены только для данного сервера.
 
-[Релиз 2026.10.19.5](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.19.5).
+[Релиз 2026.10.19.6](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.19.6).
