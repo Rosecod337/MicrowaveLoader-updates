@@ -2,7 +2,7 @@
 
 [Скачать MicrowaveLoader.exe](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/latest/download/MicrowaveLoader.exe)
 
-Версия **2026.10.20.5**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
+Версия **2026.10.20.6**, Windows x86, CS:GO Legacy. Достаточно одного EXE:
 необходимые пакеты скачиваются автоматически без GitHub-входа и токена.
 Исходники не публикуются.
 
@@ -33,7 +33,13 @@ Neverlose. Современный CS2 не поддерживается. Пос�
 
 Отдельные настройки **VISUALS / Effects**: Viewmodel FOV/XYZ, Thirdperson distance, Aspect ratio, Ambient light, Model brightness, Fog, Show viewmodel in scope, Custom bloom, Custom exposure и Material remap. Общего Microwave section/master нет; используется штатное меню и прокрутка.
 
-В **MISC / Miscellaneous**: Console filter, Buy bot, Kill message, Microwave clan tag, Enemy chat revealer и Block attack in menu.
+В **MISC / Miscellaneous**: Console filter, Buy bot, Kill message, Microwave clan tag, Enemy chat revealer, Block attack in menu и Auto unmute players.
+
+В .20.6 добавлен Auto unmute players: Self / Friends / All players, варианты можно сочетать. Управление и события перенесены в C++; исходную Microwave Lua загружать не нужно. По умолчанию список пуст. При включении, подключении и повторно через пять секунд проверяются текущие игроки. При Off, смене фильтра/конфига и перед завершением уровня возвращается mute подключённых игроков, которых изменил этот компонент; изначально размьюченные игроки не затрагиваются. Одновременное одинаковое изменение другим расширением отличить нельзя.
+
+Используется существующий Panorama engine и заново проверенный CSGOHud на главном потоке; при неизвестном профиле обращения не выполняются. Нового engine и подмен функций GameStateAPI нет. Поиск HUD ограничен 128 узлами за кадр; при стабильных настройках/без событий UI-код каждый кадр не компилируется, начальное Off не обращается к Panorama. После неожиданного уничтожения HUD возврат mute зависит от сохранения собственного журнала в GameStateAPI: этот срок жизни ещё не измерен в игре.
+
+Для .20.6 прошли 56 tree, 25 actual x86 ABI, 21 profile на байтах текущих DLL с моделью heap, 30 C++ lifecycle, 38 production JS mocks, native wrappers/config/default-off/listener, 91 effects и Release/x86. Это не проверка реального mute, HUD или FPS. В игре нужны Self/Friends/All, Off/смена фильтра, подключение/смена карты, Save/Load/старый конфиг и FPS. Проверки Enemy chat (.20.4) и Block attack (.20.5) пользователь отложил. Scoreboard equipment ещё в работе.
 
 В .20.5 добавлена отдельная галочка Block attack in menu, по умолчанию выключена. Ручные primary/secondary attack фильтруются до CreateMove, остальные кнопки и штатный сброс ввода сохраняются. Подключение только к точному нативному обработчику клиента; неизвестные обработчики других расширений не заменяются. Off, конфиг, смена карты и ошибка снимают блокировку. На каждом вводе нет VirtualQuery и обхода сущностей.
 
@@ -57,7 +63,7 @@ Buy bot: основное/дополнительное оружие и снар�
 
 Kill message: Conversations / 1 / Custom, стили Normal / Toxic. Встроены все 809 диалогов исходной Lua — 305 Normal и 504 Toxic, 1583 строки: убийство, headshot, нож, граната, серия, смерть и реванш. Conversations используют паузы набора; Headshot only, No repeats и Delay относятся к режимам 1 / Custom. Team chat выбирает командный чат. Custom поддерживает `{name}`, `{weapon}`, `{hs}` и разделитель `|`; поле вмещает 63 позиции UTF-16, включая кириллицу и вставку Ctrl+V. Очередь сбрасывается при выключении, смене настроек или уровня. Сообщение ограничено 127 байтами с сохранением целых символов UTF-8.
 
-Код регистрирует 40 новых значений в штатной системе конфигов; Custom-фразы сохраняются одним массивом. Чтением памяти ранее проверены регистрация, типы и уникальные hash первых 25 узлов. Пользователь подтвердил сохранение Bloom/Exposure/Fog, Custom в .20.2 и Clan tag в .20.3. Также подтверждены scope/FPS (.19.3), Bloom/Exposure (.19.4), отправка «1» и отключение Kill message через старый конфиг (.20.2), базовое поведение Clan tag (.20.3). Регистрация узлов сама по себе не заменяет Save/Load каждого поля в игре. Material remap, Buy bot, Block attack in menu, автоматическая загрузка после перезапуска и численные FPS новых функций остаются runtime-проверками. Игровую проверку Enemy chat .20.4 пользователь отложил.
+Код регистрирует 41 новое значение в штатной системе конфигов; Custom-фразы сохраняются одним массивом. Чтением памяти ранее проверены регистрация, типы и уникальные hash первых 25 узлов. Пользователь подтвердил сохранение Bloom/Exposure/Fog, Custom в .20.2 и Clan tag в .20.3. Также подтверждены scope/FPS (.19.3), Bloom/Exposure (.19.4), отправка «1» и отключение Kill message через старый конфиг (.20.2), базовое поведение Clan tag (.20.3). Регистрация узлов сама по себе не заменяет Save/Load каждого поля в игре. Material remap, Buy bot, Block attack in menu, Auto unmute players, автоматическая загрузка после перезапуска и численные FPS новых функций остаются runtime-проверками. Игровую проверку Enemy chat .20.4 пользователь отложил.
 
 Material remap содержит все 372 пути из Lua для Mirage, Dust2, старой Dust2 и Overpass. Учитывает штатные Night mode/tint, применяет и возвращает изменения порциями с отменой очереди и проверкой владения. Один вызов движка при загрузке текстуры может превысить бюджет очереди; время кадра не гарантируется.
 
@@ -76,4 +82,4 @@ Stable DLL сохранены без изменений из 2026.10.14.2. По�
 Серверные пакеты содержат штатную локальную пару TLS `certs/cert.pem` и
 `certs/key.pem`. Эти файлы публичны и предназначены только для данного сервера.
 
-[Релиз 2026.10.20.5](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.20.5).
+[Релиз 2026.10.20.6](https://github.com/Rosecod337/MicrowaveLoader-updates/releases/tag/v2026.10.20.6).
